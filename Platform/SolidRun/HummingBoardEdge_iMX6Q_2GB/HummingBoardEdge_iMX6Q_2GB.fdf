@@ -114,4 +114,9 @@ READ_LOCK_STATUS   = TRUE
   INF Silicon/NXP/iMX6Pkg/Drivers/PlatformSmbiosDxe/PlatformSmbiosDxe.inf
   INF MdeModulePkg/Universal/SmbiosDxe/SmbiosDxe.inf
 
+  #
+  # DT support
+  #
+  INF RuleOverride = DTB Platform/SolidRun/HummingBoardEdge_iMX6Q_2GB/DeviceTree/HummingBoard.inf
+
 !include Silicon/NXP/iMX6Pkg/iMX6CommonFdf.inc

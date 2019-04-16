@@ -75,6 +75,11 @@
   Silicon/NXP/iMX6Pkg/Drivers/PlatformSmbiosDxe/PlatformSmbiosDxe.inf
   MdeModulePkg/Universal/SmbiosDxe/SmbiosDxe.inf
 
+  #
+  # DT support
+  #
+  $(BOARD_DIR)/DeviceTree/HummingBoard.inf
+
 ################################################################################
 #
 # Board PCD Sections
