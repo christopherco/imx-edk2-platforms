@@ -319,6 +319,11 @@ READ_LOCK_STATUS   = TRUE
     UI           STRING="$(MODULE_NAME)" Optional
   }
 
+[Rule.Common.USER_DEFINED.DTB]
+  FILE FREEFORM = $(NAMED_GUID) {
+    RAW    BIN                |.dtb
+  }
+
 [Rule.Common.UEFI_APPLICATION]
   FILE APPLICATION = $(NAMED_GUID) {
     UI     STRING ="$(MODULE_NAME)" Optional

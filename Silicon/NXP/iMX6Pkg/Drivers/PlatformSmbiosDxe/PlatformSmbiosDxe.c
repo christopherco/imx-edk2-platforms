@@ -1872,6 +1872,17 @@ PlatformSmbiosDriverEntryPoint (
   )
 {
   EFI_STATUS Status;
+  VOID *Dtb;
+  UINTN DtbSize;
+
+  Dtb = NULL;
+  Status = DtPlatformLoadDtb (&Dtb, &DtbSize);
+  if (!EFI_ERROR (Status)) {
+    Status = gBS->InstallConfigurationTable (&gFdtTableGuid, Dtb);
+  }
+  if (EFI_ERROR (Status)) {
+    DEBUG ((DEBUG_ERROR, "%a: faile dot install FDT table - %r\n", __FUNCTION__, Status));
+  }
 
   Status = BiosInfoUpdateSmbiosType0 ();
   if (EFI_ERROR (Status)) {
