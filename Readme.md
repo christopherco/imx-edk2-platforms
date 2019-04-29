@@ -1,5 +1,5 @@
 [![Build Status](https://dev.azure.com/microsoft/IOT/_apis/build/status/NXP/NXP-EDK2%20Firmware%20CI?branchName=imx)](https://dev.azure.com/microsoft/IOT/_build/latest?definitionId=38657&branchName=imx)
-
+TEST
 This branch holds all platforms actively maintained against the
 [edk2](https://github.com/tianocore/edk2) master branch.
 
