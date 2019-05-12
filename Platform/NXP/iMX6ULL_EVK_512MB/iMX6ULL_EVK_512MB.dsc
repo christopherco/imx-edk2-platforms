@@ -29,7 +29,6 @@
   DEFINE CONFIG_HEADLESS          = TRUE
   DEFINE CONFIG_NOT_SECURE_UEFI   = TRUE
   DEFINE CONFIG_MEASURED_BOOT     = FALSE
-  DEFINE CONFIG_USB               = FALSE
   BOARD_DIR                       = Platform/NXP/$(BOARD_NAME)
   FLASH_DEFINITION                = $(BOARD_DIR)/$(BOARD_NAME).fdf
 

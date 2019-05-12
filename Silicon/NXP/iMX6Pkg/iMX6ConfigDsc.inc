@@ -33,11 +33,6 @@
   DEFINE CONFIG_MPCORE = TRUE
 !endif
 
-  # Enable USB by default
-!ifndef CONFIG_USB
-  DEFINE CONFIG_USB = TRUE
-!endif
-
   # Disable the PCIexpress stack by default. Enable on demand.
 !ifndef CONFIG_PCIE
   DEFINE CONFIG_PCIE = FALSE
@@ -121,10 +116,6 @@
 
 !if $(CONFIG_MPCORE) == TRUE
   GCC:*_*_*_CC_FLAGS = -DCONFIG_MPCORE=1
-!endif
-
-!if $(CONFIG_USB) == TRUE
-  GCC:*_*_*_CC_FLAGS = -DCONFIG_USB=1
 !endif
 
 !if $(CONFIG_PCIE) == TRUE
