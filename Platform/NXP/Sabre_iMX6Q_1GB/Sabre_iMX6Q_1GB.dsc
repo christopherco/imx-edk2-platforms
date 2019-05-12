@@ -28,25 +28,6 @@
   BOARD_DIR                       = Platform/NXP/$(BOARD_NAME)
   FLASH_DEFINITION                = $(BOARD_DIR)/$(BOARD_NAME).fdf
 
-################################################################################
-#
-# [BuildOptions] Section
-#
-################################################################################
-[BuildOptions]
-  GCC:*_*_*_CC_FLAGS = -D$(BOARD_NAME) -DCPU_$(IMX_FAMILY) -Wno-unused-local-typedefs
-
-[BuildOptions.common.EDKII.DXE_CORE,BuildOptions.common.EDKII.DXE_DRIVER,BuildOptions.common.EDKII.UEFI_DRIVER,BuildOptions.common.EDKII.UEFI_APPLICATION]
-  GCC:*_*_*_DLINK_FLAGS = -z common-page-size=0x1000
-
-[BuildOptions.common.EDKII.DXE_RUNTIME_DRIVER]
-  GCC:*_*_ARM_DLINK_FLAGS = -z common-page-size=0x1000
-
-################################################################################
-#
-# Platform Description
-#
-################################################################################
 !include Silicon/NXP/iMX6Pkg/iMX6CommonDsc.inc
 
 [LibraryClasses.common]
