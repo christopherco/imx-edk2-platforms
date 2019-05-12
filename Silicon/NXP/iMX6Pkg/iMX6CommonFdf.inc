@@ -39,6 +39,11 @@
   INF EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf
 
   #
+  # Platform Driver
+  #
+  INF Silicon/NXP/iMX6Pkg/Drivers/PlatformDxe/PlatformDxe.inf
+
+  #
   # Filesystem Stack
   #
   INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
@@ -52,7 +57,6 @@
   # USB Stack
   #
 !if $(CONFIG_USB) == TRUE
-  INF Silicon/NXP/iMX6Pkg/Drivers/PciEmulation/PciEmulation.inf
   INF MdeModulePkg/Bus/Pci/NonDiscoverablePciDeviceDxe/NonDiscoverablePciDeviceDxe.inf
   INF MdeModulePkg/Bus/Pci/EhciDxe/EhciDxe.inf
   INF MdeModulePkg/Bus/Usb/UsbBusDxe/UsbBusDxe.inf
