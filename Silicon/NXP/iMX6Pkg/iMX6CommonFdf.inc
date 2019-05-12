@@ -39,11 +39,6 @@
   INF EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf
 
   #
-  # Platform Driver
-  #
-  INF Silicon/NXP/iMX6Pkg/Drivers/PlatformDxe/PlatformDxe.inf
-
-  #
   # Filesystem Stack
   #
   INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf

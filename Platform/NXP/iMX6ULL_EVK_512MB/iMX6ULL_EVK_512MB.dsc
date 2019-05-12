@@ -57,6 +57,11 @@
   ArmPlatformLib|$(BOARD_DIR)/Library/iMX6BoardLib/iMX6BoardLib.inf
 [Components.common]
   #
+  # Platform Driver
+  #
+  $(BOARD_DIR)/Drivers/PlatformDxe/PlatformDxe.inf
+
+  #
   # ACPI Support
   #
   MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf

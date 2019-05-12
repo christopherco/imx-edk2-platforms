@@ -915,11 +915,6 @@
   MdeModulePkg/Universal/Console/TerminalDxe/TerminalDxe.inf
 
   #
-  # Platform Driver
-  #
-  Silicon/NXP/iMX6Pkg/Drivers/PlatformDxe/PlatformDxe.inf
-
-  #
   # Filesystem Stack
   #
   MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf

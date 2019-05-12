@@ -53,6 +53,11 @@
   UdooNeoI2cLib|$(BOARD_DIR)/Library/UdooNeoI2cLib/UdooNeoI2cLib.inf
 
 [Components.common]
+  #
+  # Platform Driver
+  #
+  $(BOARD_DIR)/Drivers/PlatformDxe/PlatformDxe.inf
+
   # Display Support
 !if $(CONFIG_HEADLESS) == FALSE
   MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
