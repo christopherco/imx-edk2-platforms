@@ -419,14 +419,10 @@
   !endif
 !endif
 
-!if $(CONFIG_MPCORE) == TRUE
-  !if (($(IMX_FAMILY) == IMX6Q) || ($(IMX_FAMILY) == IMX6QP))
+!if (($(IMX_FAMILY) == IMX6Q) || ($(IMX_FAMILY) == IMX6QP))
   gArmPlatformTokenSpaceGuid.PcdCoreCount|4
-  !elseif (($(IMX_FAMILY) == IMX6D) || ($(IMX_FAMILY) == IMX6DL) || ($(IMX_FAMILY) == IMX6DP))
+!elseif (($(IMX_FAMILY) == IMX6D) || ($(IMX_FAMILY) == IMX6DL) || ($(IMX_FAMILY) == IMX6DP))
   gArmPlatformTokenSpaceGuid.PcdCoreCount|2
-  !else
-  gArmPlatformTokenSpaceGuid.PcdCoreCount|1
-  !endif
 !else
   gArmPlatformTokenSpaceGuid.PcdCoreCount|1
 !endif

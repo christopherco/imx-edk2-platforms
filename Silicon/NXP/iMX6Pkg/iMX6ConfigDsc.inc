@@ -28,11 +28,6 @@
   DEFINE CONFIG_DUMP_SYMBOL_INFO = TRUE
 !endif
 
-  # Enable if PSCI is implemented.
-!ifndef CONFIG_MPCORE
-  DEFINE CONFIG_MPCORE = TRUE
-!endif
-
   # Disable the PCIexpress stack by default. Enable on demand.
 !ifndef CONFIG_PCIE
   DEFINE CONFIG_PCIE = FALSE
@@ -112,10 +107,6 @@
 
 !if $(CONFIG_DUMP_SYMBOL_INFO) == TRUE
   GCC:*_*_*_CC_FLAGS = -DCONFIG_DUMP_SYMBOL_INFO=1
-!endif
-
-!if $(CONFIG_MPCORE) == TRUE
-  GCC:*_*_*_CC_FLAGS = -DCONFIG_MPCORE=1
 !endif
 
 !if $(CONFIG_PCIE) == TRUE
