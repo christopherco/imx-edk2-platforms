@@ -49,6 +49,11 @@
   INF Silicon/NXP/iMXPlatformPkg/Drivers/SdhcDxe/SdhcDxe.inf
 
   #
+  # Dynamic Smbios Override
+  #
+  INF Silicon/NXP/iMXPlatformPkg/Drivers/SmbiosConfigDxe/SmbiosConfigDxe.inf
+
+  #
   # Provisioning
   #
   INF Silicon/NXP/iMXPlatformPkg/Drivers/Provisioning/Provisioning.inf

@@ -1883,6 +1883,8 @@ PlatformSmbiosDriverEntryPoint (
 {
   EFI_STATUS Status;
 
+  DEBUG ((DEBUG_ERROR, "%a: Enter\n", __FUNCTION__));
+
   Status = FakeSMBIOSDataInVolatileStorage ();
   if (EFI_ERROR (Status)) {
     goto Exit;
