@@ -13,3 +13,45 @@
 **/
 
 #include "SmbiosConfigDxe.h"
+
+EFI_STATUS
+EFIAPI
+GetSmbiosOverrideData (
+  )
+{
+  CONST CHAR16 *DevicePathText;
+  EFI_STATUS Status;
+
+}
+
+EFI_STATUS
+EFIAPI
+SmbiosConfigDxeInitialize (
+  IN EFI_HANDLE       ImageHandle,
+  IN EFI_SYSTEM_TABLE *SystemTable
+  )
+{
+  BOOLEAN Locked;
+  EFI_STATUS Status;
+
+  // Check if an Smbios override config was previously set
+  Locked = CheckSmbiosOverridePresent();
+  if (Locked == TRUE) {
+    Status = EFI_SUCCESS;
+    goto Exit;
+  }
+
+  // Lock down config no matter the result
+  SetSmbiosOverridePresent();
+
+  // Read Smbios Override file from filesystem
+  Status = GetSmbiosOverrideData();
+
+  // Validate Smbios override data
+
+  // Store override data in NV variable
+
+Exit:
+
+  return Status;
+}
