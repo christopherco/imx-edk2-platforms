@@ -16,6 +16,89 @@
 
 EFI_STATUS
 EFIAPI
+GetNextKeyValuePair (
+  CHAR8 *Buffer,
+  UINTN BufferSize,
+  CHAR8 *Key,
+  UINTN *KeySize,
+  CHAR8 *Value,
+  UINTN *ValueSize
+  )
+{
+  EFI_STATUS Status;
+  UINTN CurrentOffset;
+  UINTN KeyOffset;
+  UINTN ValueOffset;
+  BOOLEAN KeyDone;
+  BOOLEAN ValueDone;
+
+  CurrentOffset = 0;
+  KeyOffset = 0;
+  ValueOffset = 0;
+  KeyDone = FALSE;
+  ValueDone = FALSE;
+  Status = EFI_ERROR;
+
+  while (CurrentOffset < BufferSize) {
+    // Check for Key/Value delimiter. If found, skip one space
+    if ((Buffer[CurrentOffset] == ':') && (KeyDone == FALSE)) {
+      KeyDone = TRUE;
+      CurrentOffset++;
+      if (CurrentOffset >= BufferSize) {
+        break;
+      }
+      CurrentOffset++;
+      continue;
+    }
+
+    // Check for end of Value delimiter
+    if ((Buffer[CurrentOffset] == '\n') && (KeyDone == TRUE) && (ValueDone == FALSE)) {
+      ValueDone = TRUE;
+      Status = EFI_SUCCESS
+      break;
+    }
+
+    // Save the character in the appropriate array
+    if (KeyDone == FALSE) {
+      Key[KeyOffset] = Buffer[CurrentOffset];
+    } else {
+      Value[ValueOffset] = Buffer[CurrentOffset];
+    }
+    CurrentOffset++;
+  }
+
+Exit:
+  return Status;
+}
+
+EFI_STATUS
+EFIAPI
+ValidateBuffer (
+  CHAR8* Buffer,
+  UINTN BufferSize
+  )
+{
+  EFI_STATUS Status;
+  UINTN CurrentFileOffset;
+  CHAR8 *Key;
+  UINTN KeySize;
+  CHAR8 *Value;
+  UINTN ValueSize;
+
+  Status = GetNextKeyValuePair(Buffer, BufferSize, Key, &KeySize, Value, &ValueSize);
+
+  CurrentFileOffset = 0;
+  while (CurrentFileOffset < BufferSize) {
+    // Get next line
+    Buffer[i]
+  }
+
+
+  return Status;
+}
+
+EFI_STATUS
+EFIAPI
 GetSmbiosOverrideData (
   )
 {
