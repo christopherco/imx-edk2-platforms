@@ -28,9 +28,15 @@
   Silicon/NXP/iMXPlatformPkg/iMXPlatformPkg.dec
 
 [LibraryClasses]
+  DebugLib
+  DevicePathLib
+  MemoryAllocationLib
+  PcdLib
   UefiDriverEntryPoint
+  UefiBootServicesTableLib
 
 [Guids]
+  gEfiFileInfoGuid  ## CONSUMES
 
 [Protocols]
   gEfiSimpleFileSystemProtocolGuid  ## CONSUMES

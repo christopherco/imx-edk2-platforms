@@ -14,6 +14,8 @@
 #ifndef _SMBIOS_CONFIG_DXE_H_
 #define _SMBIOS_CONFIG_DXE_H_
 
+#include <Guid/FileInfo.h>
+
 #include <Library/DebugLib.h>
 #include <Library/DevicePathLib.h>
 #include <Library/MemoryAllocationLib.h>

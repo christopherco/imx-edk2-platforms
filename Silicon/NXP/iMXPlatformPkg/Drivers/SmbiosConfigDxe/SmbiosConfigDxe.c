@@ -14,26 +14,32 @@
 
 #include "SmbiosConfigDxe.h"
 
-STATIC EFI_HANDLE mImageHandle = NULL;
-
 EFI_STATUS
 EFIAPI
 GetSmbiosOverrideData (
   )
 {
+  VOID *Buffer;
+  UINTN BufferSize;
   CONST CHAR16 *DevicePathText;
   EFI_DEVICE_PATH_PROTOCOL *DevicePath;
-  EFI_FILE_PROTOCOL *File;
+  EFI_FILE_HANDLE File;
+  UINTN FileInfoSize;
+  EFI_FILE_INFO *FileInfo;
   EFI_SIMPLE_FILE_SYSTEM_PROTOCOL *Fs;
   EFI_DEVICE_PATH_PROTOCOL *IntermediateDevicePath;
-  EFI_STATUS ExitStatus;
   EFI_HANDLE MediaHandle;
   EFI_FILE_HANDLE RootVolume;
   EFI_STATUS Status;
-  
+ 
+  File = NULL;
+  RootVolume = NULL;
+  Buffer = NULL;
+  DevicePath = NULL;
+  MediaHandle = NULL;
+  Fs = NULL;
 
-  DevicePathText = (CONST CHAR16 *) FixedPcdGetPtr(
-    PcdSmbiosOverrideDevicePath);
+  DevicePathText = (CONST CHAR16 *) FixedPcdGetPtr(PcdSmbiosOverrideDevicePath);
   if ((DevicePathText == NULL) || (*DevicePathText == L'\0')) {
     Status = EFI_INVALID_PARAMETER;
     DEBUG ((DEBUG_ERROR, "%a: PcdStorageMediaPartition is unspecified\n", __FUNCTION__));
@@ -63,16 +69,14 @@ GetSmbiosOverrideData (
     goto Exit;
   }
 
-  Status = gBS->OpenProtocol(
+  Status = gBS->HandleProtocol (
     MediaHandle,
     &gEfiSimpleFileSystemProtocolGuid,
-    (VOID **)&Fs,
-    mImageHandle,
-    NULL,
-    EFI_OPEN_PROTOCOL_GET_PROTOCOL);
+    (VOID**)&Fs
+    );
 
   if (EFI_ERROR(Status)) {
-    DEBUG ((DEBUG_ERROR, "%a: gBS->OpenProtocol() failed. (Status=%r)\n", __FUNCTION__, Status));
+    DEBUG ((DEBUG_ERROR, "%a: gBS->HandleProtocol() failed. (Status=%r)\n", __FUNCTION__, Status));
     goto Exit;
   }
 
@@ -85,7 +89,7 @@ GetSmbiosOverrideData (
   Status = RootVolume->Open(
     RootVolume,
     &File,
-    L"VarLog.txt",
+    L"Smbios.cfg",
     EFI_FILE_MODE_READ,
     0);
 
@@ -94,16 +98,59 @@ GetSmbiosOverrideData (
     goto Exit;
   }
 
-  Status = File->SetPosition(File, 0);
-  if (EFI_ERROR(Status)) {
-    DEBUG ((DEBUG_ERROR, "%a: File->SetPosition(0) failed. (Status=%r)\n", __FUNCTION__, Status));
+  //
+  // Get File Info
+  // 
+  FileInfoSize = sizeof(EFI_FILE_INFO) + 1024;
+  FileInfo = AllocateZeroPool (FileInfoSize);
+  if (FileInfo == NULL) {
+    DEBUG ((DEBUG_ERROR, "%a: FileInfo allocation failed\n", __FUNCTION__));
     goto Exit;
   }
 
+  Status = File->GetInfo (
+                  File,
+                  &gEfiFileInfoGuid,
+                  &FileInfoSize,
+                  FileInfo
+                  );
+  if (EFI_ERROR (Status)) {
+    DEBUG ((DEBUG_ERROR, "%a: Failed to get File Info (Status=%r)\n", __FUNCTION__, Status));
+    goto Exit;
+  }
+
+  BufferSize = (UINTN) FileInfo->FileSize + sizeof(CHAR16);
+  Buffer = AllocateZeroPool (BufferSize);
+  if (Buffer == NULL) {
+    DEBUG ((DEBUG_ERROR, "%a: Buffer allocation failed \n", __FUNCTION__));
+    goto Exit;
+  }
+
+  Status = File->Read (
+                File,
+                &BufferSize,
+                Buffer
+                );
+  if (EFI_ERROR (Status)) {
+    DEBUG ((DEBUG_ERROR, "%a: File Read failed (Status=%r)\n", __FUNCTION__, Status));
+    goto Exit;
+  }
+
+  DEBUG ((DEBUG_INFO, "%a: Buffer contains %s\n", __FUNCTION__, Buffer));
+
 Exit:
 
+  if (Buffer != NULL) {
+    gBS->FreePool (Buffer);
+    Buffer = NULL;
+  }
+
+  if (FileInfo != NULL) {
+    gBS->FreePool (FileInfo);
+    FileInfo = NULL;
+  }
+
   if (File != NULL) {
-    File->Flush(File);
     File->Close(File);
     File = NULL;
   }
@@ -112,21 +159,6 @@ Exit:
     RootVolume->Close(RootVolume);
     RootVolume = NULL;
   }
-
-  if (MediaHandle != NULL) {
-      ExitStatus = gBS->CloseProtocol(
-      MediaHandle,
-      &gEfiSimpleFileSystemProtocolGuid,
-      mImageHandle,
-      NULL);
-
-    if (EFI_ERROR(ExitStatus)) {
-      DEBUG ((DEBUG_ERROR, "%a: gBS->CloseProtocol() failed. (Status=%r)\n", __FUNCTION__, ExitStatus));
-    }
-
-    Fs = NULL;
-  }
-
 
   if (DevicePath != NULL) {
     FreePool(DevicePath);
@@ -140,7 +172,7 @@ BOOLEAN
 CheckSmbiosOverridePresent (
   )
 {
-  return TRUE;
+  return FALSE;
 }
 
 EFI_STATUS
