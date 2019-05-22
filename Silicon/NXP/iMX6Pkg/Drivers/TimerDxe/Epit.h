@@ -16,8 +16,8 @@
 *
 **/
 
-#ifndef __COMMON_EPIT_H
-#define __COMMON_EPIT_H
+#ifndef _EPIT_H_
+#define _EPIT_H_
 
 typedef struct {
   UINT32 CR;
@@ -115,4 +115,4 @@ typedef struct {
 // CNT
 #define EPIT_CNT_COUNT_MAX          0xFFFFFFFF
 
-#endif // __COMMON_EPIT_H
+#endif // _EPIT_H_

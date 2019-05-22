@@ -25,7 +25,7 @@
 #include <Protocol/HardwareInterrupt.h>
 #include <Protocol/Timer.h>
 
-#include <common_epit.h>
+#include "Epit.h"
 #include <iMX6.h>
 
 // The notification function to call on every timer interrupt.
