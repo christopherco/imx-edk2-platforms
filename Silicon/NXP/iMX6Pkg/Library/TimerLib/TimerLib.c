@@ -22,7 +22,7 @@
 #include <Library/PcdLib.h>
 #include <Library/TimerLib.h>
 
-#include <common_gpt.h>
+#include "Gpt.h"
 #include <iMX6.h>
 #include <iMX6Timer.h>
 

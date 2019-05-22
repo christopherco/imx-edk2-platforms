@@ -16,8 +16,8 @@
 *
 **/
 
-#ifndef __COMMON_GPT_H
-#define __COMMON_GPT_H
+#ifndef _GPT_H_
+#define _GPT_H_
 
 typedef struct {
   UINT32 CR;
@@ -275,4 +275,4 @@ typedef struct {
 #define GPT_IR_ROVIE_INT_ENABLE         1 // Rollover int enabled
 #define GPT_IR_ROVIE_INT_DISABLE        0 // Rollover int disabled
 
-#endif // __COMMON_GPT_H
+#endif // _GPT_H_
