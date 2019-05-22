@@ -17,7 +17,6 @@
 #include <IndustryStandard/MemoryMappedConfigurationSpaceAccessTable.h>
 
 #include <iMX6.h>
-#include <iMX6PciExpress.h>
 
 #define EFI_ACPI_OEM_MCFG_REVISION 0x00000001
 
@@ -66,7 +65,7 @@ STATIC EFI_ACPI_MEMORY_MAPPED_CONFIGURATION_SPACE_ACCESS_DESCRIPTION_TABLE Mcfg 
   {
     // PCIe Host
     {
-      PCIE_HOST_CONFIG_BASE_REG,        // PCIE Host Config Base Address
+      FixedPcdGet32(PcdPcieHostConfigBase),        // PCIE Host Config Base Address
       0x00,                             // PciSegmentGroupNumber (_SEG)
       0x00,                             // StartBusNumber
       0x00,                             // EndBusNumber
@@ -75,7 +74,7 @@ STATIC EFI_ACPI_MEMORY_MAPPED_CONFIGURATION_SPACE_ACCESS_DESCRIPTION_TABLE Mcfg 
 
     // PCIe Device
     {
-      PCIE_DEVICE_CONFIG_BASE_REG - ECAM_BUS_ADDR_SIZE,  // BaseAddress
+      FixedPcdGet32(PcdPcieDeviceConfigBase) - ECAM_BUS_ADDR_SIZE,  // BaseAddress
                                          // Note: Need to subtract ECAM_BUS_ADDR_SIZE
                                          //   since bus range starts at 0x1
       0x00,                              // PciSegmentGroupNumber (_SEG)
