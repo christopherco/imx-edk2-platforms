@@ -101,3 +101,16 @@ Device (PEP0)
     Interrupt (ResourceConsumer, Level, ActiveHigh, Shared) { 58 }
   })
 }
+
+Device (TIM0)
+{
+  Name (_HID, "NXP1234")
+  Name (_UID, 0x0)
+
+  Method (_STA) {
+    Return (0xf)
+  }
+  Name (_CRS, ResourceTemplate () {
+    Interrupt (ResourceConsumer, Edge, ActiveHigh, Exclusive) { 29 }
+  })
+}
